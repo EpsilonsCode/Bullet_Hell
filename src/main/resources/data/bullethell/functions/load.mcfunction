@@ -1,1 +1,1 @@
-tellraw @p "es"
+scoreboard objectives add BulletTimer dummy "Bullet Timers"
