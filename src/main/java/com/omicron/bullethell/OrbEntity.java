@@ -28,6 +28,8 @@ public class OrbEntity extends Entity implements IRendersAsItem {
 
     @Override
     public void tick() {
+        if(this.level.getNearestPlayer(this, Configuration.ORB_LIFE_TIME.get()) == null)
+            this.kill();
         /*
         if (!this.isNoGravity()) {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
