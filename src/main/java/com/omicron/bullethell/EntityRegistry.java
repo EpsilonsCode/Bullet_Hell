@@ -24,7 +24,7 @@ public class EntityRegistry {
     }
 
     public static RegistryObject<EntityType<OrbEntity>> ORB_ENTITY = ENTITIES.register("orb", () -> EntityType.Builder.of(OrbEntity::new, EntityClassification.MISC)
-            .sized(0.5F, 0.5F)
+            .sized(0.25F, 0.25F)
             .build("orb"));
 
 }
