@@ -4,6 +4,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.MoverType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -103,12 +104,15 @@ public class OrbEntity extends Entity implements IRendersAsItem {
         } else if (raytraceresult$type == RayTraceResult.Type.BLOCK) {
             this.onHitBlock((BlockRayTraceResult)pResult);
         }
-        this.kill();
     }
 
     protected void onHitEntity(EntityRayTraceResult pResult)
     {
-        pResult.getEntity().hurt(DamageSource.LAVA, 5);
+        if(pResult.getEntity() instanceof PlayerEntity)
+        {
+            pResult.getEntity().hurt(DamageSource.LAVA, 5);
+            this.kill();
+        }
 
     }
 
