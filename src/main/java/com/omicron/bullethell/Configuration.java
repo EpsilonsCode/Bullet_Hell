@@ -20,8 +20,8 @@ public class Configuration {
 
         SERVER_BUILDER.comment("Orb entity config").push(CATEGORY_ORB);
 
-        ORB_LIFE_TIME = SERVER_BUILDER.comment("Lifetime of the orb entity measured in ticks")
-                .defineInRange("lifetime", 1200, 0, Integer.MAX_VALUE);
+        ORB_LIFE_TIME = SERVER_BUILDER.comment("Number of blocks away from nearest player to despawn")
+                .defineInRange("lifetime", 60, 0, Integer.MAX_VALUE);
 
         SERVER_BUILDER.pop();
 
