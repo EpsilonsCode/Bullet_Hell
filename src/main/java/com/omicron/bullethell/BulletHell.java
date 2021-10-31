@@ -41,6 +41,6 @@ public class BulletHell
 
     private static void initClient(final FMLCommonSetupEvent event)
     {
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.ORB_ENTITY.get(), manager -> new SpriteRenderer(manager, Minecraft.getInstance().getItemRenderer(), 0.8F, true));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.ORB_ENTITY.get(), manager -> new SpriteRenderer(manager, Minecraft.getInstance().getItemRenderer(), 3.0F, true));
     }
 }

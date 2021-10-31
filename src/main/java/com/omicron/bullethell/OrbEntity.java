@@ -61,10 +61,10 @@ public class OrbEntity extends Entity implements IRendersAsItem {
     }
 
     public static RayTraceResult getHitResult(Entity p_234618_0_, Predicate<Entity> p_234618_1_) {
-        Vector3d vector3d = p_234618_0_.getDeltaMovement();
+        Vector3d vector3d = p_234618_0_.getDeltaMovement().normalize().scale(0.45);
         World world = p_234618_0_.level;
         Vector3d vector3d1 = p_234618_0_.position();
-        Vector3d vector3d2 = vector3d1.add(vector3d).add(0.3, 0.3, 0.3);
+        Vector3d vector3d2 = vector3d1.add(vector3d);
         RayTraceResult raytraceresult = world.clip(new RayTraceContext(vector3d1, vector3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p_234618_0_));
         if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
             vector3d2 = raytraceresult.getLocation();
