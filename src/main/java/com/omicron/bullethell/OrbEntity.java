@@ -1,5 +1,6 @@
 package com.omicron.bullethell;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -39,7 +40,11 @@ public class OrbEntity extends Entity implements IRendersAsItem {
 
          */
         this.move(MoverType.SELF, this.getDeltaMovement());
-
+        this.checkInsideBlocks();
+        if(this.verticalCollision||this.horizontalCollision)
+        {
+            this.onHitBlock();
+        }
         RayTraceResult raytraceresult = getHitResult(this, this::canHitEntity);
         if (raytraceresult.getType() != RayTraceResult.Type.MISS && !net.minecraftforge.event.ForgeEventFactory.onProjectileImpact(this, raytraceresult)) {
             this.onHit(raytraceresult);
@@ -59,16 +64,39 @@ public class OrbEntity extends Entity implements IRendersAsItem {
 
      */
     }
+    @Override
+    public boolean hurt(DamageSource pSource, float pAmount) {
+        if (this.isInvulnerableTo(pSource)) {
+            return false;
+        } else {
+            this.markHurt();
+            Entity entity = pSource.getEntity();
+            if (entity != null) {
+                this.isPickable()
+                //System.out.println("ez");
+                Vector3d vector3d = entity.getLookAngle();
+                this.setDeltaMovement(vector3d);
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 
     public static RayTraceResult getHitResult(Entity p_234618_0_, Predicate<Entity> p_234618_1_) {
         Vector3d vector3d = p_234618_0_.getDeltaMovement().normalize().scale(0.45);
         World world = p_234618_0_.level;
         Vector3d vector3d1 = p_234618_0_.position();
         Vector3d vector3d2 = vector3d1.add(vector3d);
-        RayTraceResult raytraceresult = world.clip(new RayTraceContext(vector3d1, vector3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p_234618_0_));
-        if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
-            vector3d2 = raytraceresult.getLocation();
-        }
+        RayTraceResult raytraceresult = new RayTraceResult(vector3d1) {
+            @Override
+            public Type getType() {
+                return Type.MISS;
+            }
+        };// = world.clip(new RayTraceContext(vector3d1, vector3d2, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, p_234618_0_));
+        //if (raytraceresult.getType() != RayTraceResult.Type.MISS) {
+            //vector3d2 = raytraceresult.getLocation();
+        //}
 
         RayTraceResult raytraceresult1 = ProjectileHelper.getEntityHitResult(world, p_234618_0_, vector3d1, vector3d2, p_234618_0_.getBoundingBox().expandTowards(p_234618_0_.getDeltaMovement()).inflate(1.0D), p_234618_1_);
         if (raytraceresult1 != null) {
@@ -102,7 +130,7 @@ public class OrbEntity extends Entity implements IRendersAsItem {
         if (raytraceresult$type == RayTraceResult.Type.ENTITY) {
             this.onHitEntity((EntityRayTraceResult)pResult);
         } else if (raytraceresult$type == RayTraceResult.Type.BLOCK) {
-            this.onHitBlock((BlockRayTraceResult)pResult);
+            this.onHitBlock();
         }
     }
 
@@ -116,7 +144,7 @@ public class OrbEntity extends Entity implements IRendersAsItem {
 
     }
 
-    protected void onHitBlock(BlockRayTraceResult p_230299_1_)
+    protected void onHitBlock()
     {
         this.kill();
     }

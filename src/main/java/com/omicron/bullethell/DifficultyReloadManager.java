@@ -3,6 +3,7 @@ package com.omicron.bullethell;
 import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.JsonReloadListener;
 import net.minecraft.command.FunctionObject;
 import net.minecraft.loot.LootSerializers;
@@ -12,6 +13,8 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
@@ -64,25 +67,30 @@ public class DifficultyReloadManager extends JsonReloadListener {
             tickingHard.addAll(library.getTags().getTagOrEmpty(HARD_FUNCTION_TAG).getValues());
         }
         net.minecraft.world.Difficulty difficulty = server.getWorldData().getDifficulty();
+        //System.out.println("tick");
         switch(difficulty)
         {
             case PEACEFUL:
             {
+                //System.out.println("p");
                 executeTagFunctions(tickingPeaceful, PEACEFUL_FUNCTION_TAG);
                 break;
             }
             case EASY:
             {
+                //System.out.println("e");
                 executeTagFunctions(tickingEasy, EASY_FUNCTION_TAG);
                 break;
             }
             case NORMAL:
             {
+                //System.out.println("n");
                 executeTagFunctions(tickingNormal, NORMAL_FUNCTION_TAG);
                 break;
             }
             case HARD:
             {
+                //System.out.println("h");
                 executeTagFunctions(tickingHard, HARD_FUNCTION_TAG);
                 break;
             }

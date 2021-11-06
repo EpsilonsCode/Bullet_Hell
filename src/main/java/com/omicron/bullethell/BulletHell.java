@@ -25,7 +25,6 @@ public class BulletHell
         FMLJavaModLoadingContext.get().getModEventBus().addListener(BulletHell::initClient);
         MinecraftForge.EVENT_BUS.addListener(this::addReloadListeners);
         MinecraftForge.EVENT_BUS.addListener(DifficultyReloadManager::tick);
-
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Configuration.SERVER_CONFIG);
     }
 
