@@ -1,5 +1,8 @@
+#counters
 scoreboard objectives add BulletTimer dummy "Bullet Timers"
+scoreboard objectives add ShotCount dummy "Shot Count"
 
+#motion
 scoreboard objectives add motion_x1 dummy
 scoreboard objectives add motion_y1 dummy
 scoreboard objectives add motion_z1 dummy
