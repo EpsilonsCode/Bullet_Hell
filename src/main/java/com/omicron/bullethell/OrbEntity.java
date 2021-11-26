@@ -72,7 +72,6 @@ public class OrbEntity extends Entity implements IRendersAsItem {
             this.markHurt();
             Entity entity = pSource.getEntity();
             if (entity != null) {
-                this.isPickable()
                 //System.out.println("ez");
                 Vector3d vector3d = entity.getLookAngle();
                 this.setDeltaMovement(vector3d);

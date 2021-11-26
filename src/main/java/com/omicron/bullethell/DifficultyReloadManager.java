@@ -68,34 +68,31 @@ public class DifficultyReloadManager extends JsonReloadListener {
         }
         net.minecraft.world.Difficulty difficulty = server.getWorldData().getDifficulty();
         //System.out.println("tick");
-        switch(difficulty)
-        {
-            case PEACEFUL:
-            {
-                //System.out.println("p");
-                executeTagFunctions(tickingPeaceful, PEACEFUL_FUNCTION_TAG);
-                break;
-            }
-            case EASY:
-            {
-                //System.out.println("e");
-                executeTagFunctions(tickingEasy, EASY_FUNCTION_TAG);
-                break;
-            }
-            case NORMAL:
-            {
-                //System.out.println("n");
-                executeTagFunctions(tickingNormal, NORMAL_FUNCTION_TAG);
-                break;
-            }
-            case HARD:
-            {
-                //System.out.println("h");
-                executeTagFunctions(tickingHard, HARD_FUNCTION_TAG);
-                break;
+        if(event.phase == TickEvent.Phase.START) {
+            //timer = 1;
+            switch (difficulty) {
+                case PEACEFUL: {
+                    //System.out.println("p");
+                    executeTagFunctions(tickingPeaceful, PEACEFUL_FUNCTION_TAG);
+                    break;
+                }
+                case EASY: {
+                    //System.out.println("e");
+                    executeTagFunctions(tickingEasy, EASY_FUNCTION_TAG);
+                    break;
+                }
+                case NORMAL: {
+                    //System.out.println("n");
+                    executeTagFunctions(tickingNormal, NORMAL_FUNCTION_TAG);
+                    break;
+                }
+                case HARD: {
+                    System.out.println("h");
+                    executeTagFunctions(tickingHard, HARD_FUNCTION_TAG);
+                    break;
+                }
             }
         }
-
     }
 
     private static void executeTagFunctions(Collection<FunctionObject> pFunctionObjects, ResourceLocation pIdentifier) {
