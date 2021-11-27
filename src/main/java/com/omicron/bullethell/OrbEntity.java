@@ -12,10 +12,7 @@ import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -27,11 +24,64 @@ public class OrbEntity extends Entity implements IRendersAsItem {
     public OrbEntity(EntityType<?> entityType, World world) {
         super(entityType, world);
     }
+    /*
+    public void ez()
+    {
+        Entity entity = Minecraft.getInstance().getCameraEntity();
+
+
+        float pPartialTicks = Minecraft.getInstance().getFrameTime();
+
+        Minecraft.getInstance().crosshairPickEntity = null;
+
+        double d0 = 0;
+        if(Minecraft.getInstance().gameMode != null)
+        d0 = (double)Minecraft.getInstance().gameMode.getPickRange();
+        //Minecraft.getInstance().hitResult = entity.pick(d0, pPartialTicks, false);
+        Vector3d vector3d = entity.getEyePosition(pPartialTicks);
+        boolean flag = false;
+        int i = 3;
+        double d1 = d0;
+        if (Minecraft.getInstance().gameMode.hasFarPickRange()) {
+            d1 = 6.0D;
+            d0 = d1;
+        } else {
+            if (d0 > 3.0D) {
+                flag = true;
+            }
+
+            d0 = d0;
+        }
+
+        d1 = d1 * d1;
+        if (Minecraft.getInstance().hitResult != null) {
+            d1 = Minecraft.getInstance().hitResult.getLocation().distanceToSqr(vector3d);
+        }
+
+        Vector3d vector3d1 = entity.getViewVector(1.0F);
+        Vector3d vector3d2 = vector3d.add(vector3d1.x * d0, vector3d1.y * d0, vector3d1.z * d0);
+
+        AxisAlignedBB axisalignedbb = entity.getBoundingBox().expandTowards(vector3d1.scale(d0)).inflate(1.0D, 1.0D, 1.0D);
+
+        EntityRayTraceResult entityraytraceresult = ProjectileHelper.getEntityHitResult(entity, vector3d, vector3d2, axisalignedbb, (p_215312_0_) -> {
+            return !p_215312_0_.isSpectator() && p_215312_0_.isPickable();
+        }, d1);
+
+        if(entityraytraceresult != null && entityraytraceresult.getType() == RayTraceResult.Type.ENTITY)
+        {
+            EntityRayTraceResult a = (EntityRayTraceResult) entityraytraceresult;
+            System.out.println(a.getEntity());
+        }
+    }
+     */
 
     @Override
     public void tick() {
         if(this.level.getNearestPlayer(this, Configuration.ORB_LIFE_TIME.get()) == null)
             this.kill();
+
+        //ez();
+        //System.out.println(this.hurt(DamageSource.CACTUS, 1.0F));
         /*
         if (!this.isNoGravity()) {
             this.setDeltaMovement(this.getDeltaMovement().add(0.0D, -0.04D, 0.0D));
@@ -64,17 +114,23 @@ public class OrbEntity extends Entity implements IRendersAsItem {
 
      */
     }
+
+    @Override
+    public float getPickRadius() {
+        return 0.0F;
+    }
+
     @Override
     public boolean hurt(DamageSource pSource, float pAmount) {
+        //System.out.println("hurt");
         if (this.isInvulnerableTo(pSource)) {
             return false;
         } else {
             this.markHurt();
             Entity entity = pSource.getEntity();
-            if (entity != null) {
+            if (entity != null && entity instanceof PlayerEntity) {
                 //System.out.println("ez");
-                Vector3d vector3d = entity.getLookAngle();
-                this.setDeltaMovement(vector3d);
+                this.kill();
                 return true;
             } else {
                 return false;
@@ -161,5 +217,10 @@ public class OrbEntity extends Entity implements IRendersAsItem {
     @Override
     protected void addAdditionalSaveData(CompoundNBT pCompound) {
 
+    }
+
+    @Override
+    public boolean isPickable() {
+        return true;
     }
 }

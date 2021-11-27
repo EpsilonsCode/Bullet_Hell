@@ -52,7 +52,7 @@ public class DifficultyReloadManager extends JsonReloadListener {
         FunctionReloader library = server.getFunctions().library;
         if(isReloaded)
         {
-            System.out.println("reload");
+            //System.out.println("reload");
             isReloaded = false;
             tickingPeaceful.clear();
             tickingPeaceful.addAll(library.getTags().getTagOrEmpty(PEACEFUL_FUNCTION_TAG).getValues());
