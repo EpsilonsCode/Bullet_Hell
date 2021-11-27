@@ -87,7 +87,7 @@ public class DifficultyReloadManager extends JsonReloadListener {
                     break;
                 }
                 case HARD: {
-                    System.out.println("h");
+                    //System.out.println("h");
                     executeTagFunctions(tickingHard, HARD_FUNCTION_TAG);
                     break;
                 }
