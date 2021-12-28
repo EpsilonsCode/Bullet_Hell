@@ -17,6 +17,7 @@ public class EntityRegistry {
     }
 
     public static RegistryObject<EntityType<OrbEntity>> ORB_ENTITY = ENTITIES.register("orb", () -> EntityType.Builder.of(OrbEntity::new, EntityClassification.MISC)
+            .setShouldReceiveVelocityUpdates(true)
             .sized(1.0F, 1.0F)
             .build("orb"));
 
