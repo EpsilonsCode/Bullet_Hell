@@ -1,6 +1,6 @@
 #counters
 scoreboard objectives add BulletTimer dummy "Bullet Timers"
-scoreboard objectives add ShotCount dummy "Shot Count
+scoreboard objectives add ShotCount dummy "Shot Count"
 scoreboard objectives add Pattern dummy "Pattern Number"
 
 #motion
