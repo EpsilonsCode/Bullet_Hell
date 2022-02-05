@@ -1,7 +1,8 @@
 {
  "values": [
- "bullethell:hard/zombie",
+  "bullethell:hard/spider",
   "bullethell:hard/creeper",
-  "bullethell:hard/phantom"
+  "bullethell:hard/phantom",
+  "bullethell:hard/husk"
  ]
 }
