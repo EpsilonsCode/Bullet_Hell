@@ -13,5 +13,3 @@ execute store result entity @s Motion[1] double 0.001 run scoreboard players ope
 execute store result entity @s Motion[2] double 0.001 run scoreboard players operation @s motion_z2 -= @s motion_z1
 
 tag @s add motion_added
-
-playsound entity.blaze.shoot ambient @a ~ ~ ~ 0.05
