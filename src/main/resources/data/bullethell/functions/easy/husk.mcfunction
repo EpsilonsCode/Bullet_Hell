@@ -1,3 +1,5 @@
+#demonstrates phased attacks
+
 execute as @a at @s run scoreboard players add @e[type=husk,distance=8..40] BulletTimer 1
 execute as @e[type=husk,scores={BulletTimer=40..,Pattern=0}] at @s anchored eyes run summon bullethell:orb ^ ^-1 ^ {Tags:["motion_projectile"],Rotation:[0f,0f]}
 execute as @e[type=husk,scores={BulletTimer=40..,Pattern=0}] at @s anchored eyes run summon bullethell:orb ^ ^-1 ^ {Tags:["motion_projectile"],Rotation:[90f,0f]}
